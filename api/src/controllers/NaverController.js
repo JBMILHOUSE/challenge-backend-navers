@@ -1,5 +1,6 @@
 const { Request, Response } = require('express')
 const db = require('../database/connection');
+const knex = require('knex');
 
 module.exports = {
    /*async index(request, response) {
@@ -15,16 +16,14 @@ module.exports = {
         name,
         job_role,
         birthdate,
-        admission_date
+        admission_date, project,
       } = request.body;
 
-      const trx = await db.transaction();
       // usuario digita
       try {
-        await trx('navers').insert({id, name, job_role, birthdate, admission_date});
-      
-        await trx.commit();
-        return response.status(201).json({ message: "Sucesso, naver inserido"});
+        const insertedNaver = await knex('navers').insert({ id, name, job_role, birthdate, admission_date, project });
+       // console.log(insertedNaver);
+        return response.json({ insertedNaver: "inserido"});
 
       }catch(err){
           console.log(err);

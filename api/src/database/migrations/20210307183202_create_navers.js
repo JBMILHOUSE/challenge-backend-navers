@@ -1,3 +1,4 @@
+const knex = require('knex');
 
 exports.up = function(knex) {
   return knex.schema.createTable('navers', (table) => {
@@ -8,9 +9,9 @@ exports.up = function(knex) {
      table.date('admission_date').notNullable();
      table.timestamp('created_at').defaultTo(knex.fn.now());
      table.timestamp('updated_at').defaultTo(knex.fn.now());
-  })
+  });
 };
 
 exports.down = function(knex) {
-  return knex.schema.droptable('navers');
+  return knex.schema.dropTable('navers');
 };
