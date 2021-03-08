@@ -1,29 +1,21 @@
 const { Request, Response } = require('express')
-const db = require('../database/connection');
-const knex = require('knex');
+const connection = require('../database/connection');
 
 module.exports = {
-   /*async index(request, response) {
-       const results = await knex('navers')
+   async index(request, response) {
+       const results = await connection('navers').select('*');
 
-       return results.json(results);
-   };*/
+       return response.json(results);
+   },
 
-   async create(request, response) {
+    async create(request, response) {
        
-     const {
-        id,
-        name,
-        job_role,
-        birthdate,
-        admission_date, project,
-      } = request.body;
+     const { name, job_role, birthdate, admission_date } = request.body;
 
-      // usuario digita
       try {
-        const insertedNaver = await knex('navers').insert({ id, name, job_role, birthdate, admission_date, project });
-       // console.log(insertedNaver);
-        return response.json({ insertedNaver: "inserido"});
+        await connection('navers').insert({ admission_date, birthdate, job_role, name })
+
+        return response.status(201).json({ message: "inserido" });
 
       }catch(err){
           console.log(err);
