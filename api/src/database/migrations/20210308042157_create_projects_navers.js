@@ -1,12 +1,24 @@
 
-export function up(knex) {
+exports.up = function(knex) {
   return knex.schema.createTable('project_navers', (table) => {
     table.increments('id').primary();
-    table.uuid('project_id').notNullable().references('id').inTable('projects');
-    table.uuid('navers_id').notNullable().references('id').inTable('navers');
+    
+    table.integer('projects_id')
+         .notNullable()
+         .references('id')
+         .inTable('projects')
+         .onUpdate("CASCADE")
+         .onDelete("CASCADE");
+    
+         table.integer('navers_id')
+              .notNullable()
+              .references('id')
+              .inTable('navers')
+              .onUpdate("CASCADE")
+              .onDelete("CASCADE");
  });
 }
 
-export function down(knex) {
+exports.down = function(knex) {
   return knex.schema.dropTable('project_navers');
 }

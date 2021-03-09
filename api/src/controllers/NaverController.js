@@ -1,25 +1,37 @@
-const { Request, Response } = require('express')
 const connection = require('../database/connection');
 
 module.exports = {
    async index(request, response) {
-       const results = await connection('navers').select('*');
+       const navers = await connection('navers').select('*');
 
-       return response.json(results);
+       return response.json(navers);
    },
 
-    async create(request, response) {
+    async store(request, response) {
        
-     const { name, job_role, birthdate, admission_date } = request.body;
+     const { name, job_role, birthdate, admission_date, projects_id } = request.body;
 
       try {
-        await connection('navers').insert({ admission_date, birthdate, job_role, name })
+        const insertedNaversIds = await connection('navers').insert({ name, job_role, birthdate, admission_date });
 
-        return response.status(201).json({ message: "inserido" });
+        const naver_id = insertedNaversIds[0];
+
+        const insertedProjectsId = await connection('project').insert({ projects });
+
+        const project_id = insertedProjectsId[0];
+
+        await connection('project_navers').insert({ naver_id, project_id });
+
+        return response.status(201).json();
 
       }catch(err){
           console.log(err);
           return response.status(404).json({ error: 'erro ao inserir um naver'});
       }
+   },
+
+   async show(request, response){
+
+      
    }
 }

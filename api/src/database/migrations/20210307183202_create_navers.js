@@ -1,4 +1,4 @@
-export async function up(knex) {
+exports.up = function(knex) {
   return knex.schema.createTable('navers', (table) => {
      table.increments('id').primary();
      table.string('name').notNullable();
@@ -11,6 +11,6 @@ export async function up(knex) {
   });
 }
 
-export async function down(knex) {
+exports.down = function(knex) {
   return knex.schema.dropTable('navers');
 }
