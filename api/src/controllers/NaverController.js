@@ -9,20 +9,13 @@ module.exports = {
 
     async store(request, response) {
        
-     const { name, job_role, birthdate, admission_date, projects_id } = request.body;
+     const { name, job_role, birthdate, admission_date, projects } = request.body;
 
       try {
-        const insertedNaversIds = await connection('navers').insert({ name, job_role, birthdate, admission_date });
+         await connection('navers')
+          .insert({ name, job_role, birthdate, admission_date, projects });
 
-        const naver_id = insertedNaversIds[0];
-
-        const insertedProjectsId = await connection('project').insert({ projects });
-
-        const project_id = insertedProjectsId[0];
-
-        await connection('project_navers').insert({ naver_id, project_id });
-
-        return response.status(201).json();
+        return response.status(201).json({ message: "Criado"});
 
       }catch(err){
           console.log(err);
@@ -30,8 +23,26 @@ module.exports = {
       }
    },
 
-   async show(request, response){
+   async show(request, response) {
+       const { id } = request.query;
 
+        try {
+          const query = await connection('navers');
+       
+          if(id){
+           query.where({id})
+               .join('navers', 'navers.id', '=', 'project.id')
+               .select('navers.*', 'project.*');   
+          }
+ 
+          const results = await query;
+ 
+          return response.json(results)
+ 
+        } catch (error) {
+         return response.json({ message: "erro"})
+        }
+       
       
    }
 }
