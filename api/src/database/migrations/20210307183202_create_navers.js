@@ -6,7 +6,7 @@ exports.up = function(knex) {
      table.date('birthdate').notNullable();
      table.date('admission_date').notNullable();
 
-     table.integer('projects')
+     table.integer('projects_id')
          .references('project.id')
          .notNullable()
          .onUpdate("CASCADE")

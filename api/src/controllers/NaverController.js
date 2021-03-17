@@ -9,11 +9,11 @@ module.exports = {
 
     async store(request, response) {
        
-     const { name, job_role, birthdate, admission_date, projects } = request.body;
+     const { name, job_role, birthdate, admission_date, projects_id } = request.body;
 
       try {
          await connection('navers')
-          .insert({ name, job_role, birthdate, admission_date, projects });
+          .insert({ name, job_role, birthdate, admission_date, projects_id });
 
         return response.status(201).json({ message: "Criado"});
 
@@ -24,16 +24,12 @@ module.exports = {
    },
 
    async show(request, response) {
-       const { id } = request.query;
+      const { id } = request.query;
 
         try {
-          const query = await connection('navers');
-       
-          if(id){
-           query.where({id})
-               .join('navers', 'navers.id', '=', 'project.id')
-               .select('navers.*', 'project.*');   
-          }
+          const query = await connection('navers').join('navers', 'navers.id', '=', { id })
+               .select('navers.name', 'navers.job_role', 'navers.birthday', 'navers.admission_date', 'project.*');   
+      
  
           const results = await query;
  

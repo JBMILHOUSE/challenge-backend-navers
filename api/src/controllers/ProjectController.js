@@ -8,9 +8,9 @@ module.exports = {
     },
 
     async store(request, response){
-        const { name, navers } = request.body;
+        const { name, navers_id } = request.body;
 
-        await connection('project').insert({ name, navers });
+        await connection('project').insert({ name, navers_id });
 
         return response.status(201).json();
     }

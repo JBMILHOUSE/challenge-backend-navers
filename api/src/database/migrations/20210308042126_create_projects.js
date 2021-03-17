@@ -4,7 +4,7 @@ exports.up = function(knex) {
      table.increments('id').primary();
      table.string('name').notNullable();
 
-     table.integer('navers')
+     table.integer('navers_id')
          .references('navers.id')
          .notNullable()
          .onUpdate("CASCADE")
