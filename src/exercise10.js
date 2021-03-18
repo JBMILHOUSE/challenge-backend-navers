@@ -1,4 +1,7 @@
-/*E.10 Faça uma função que receba 2 parâmetros: um array de movies e um array de actors. A função deve retornar um array de movies, onde cada movie possui a propriedade actors, que sera um array com os nomes dos atores. Por ex:
+/*E.10 Faça uma função que receba 2 parâmetros: um array de movies e 
+ um array de actors. A função deve retornar um array de movies, onde 
+ cada movie possui a propriedade actors, que sera um array com os nomes dos atores. 
+ Por ex:
 [
   {
 	id: 99,

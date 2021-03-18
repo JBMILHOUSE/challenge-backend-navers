@@ -1,4 +1,5 @@
-/* E.9 Ordene o array de forma decrescente por idade, em caso de empate o desempate é pelo id(em ordem crescente).  
+/* E.9 Ordene o array de forma decrescente por idade, em caso de empate 
+o desempate é pelo id(em ordem crescente).  
 
 const pessoa = [
   { id: 1, first_name: "Juca", last_name: "Da Silva", age: 42 },
@@ -14,7 +15,6 @@ function printPeople(people) {
 }
 
 function sortPeopleByAge(people) {
-  //criando uma cópia para manter o array 'people' original
   var peopleSortedByAge = people;
   peopleSortedByAge.sort(function (a, b) {
     if (a.age > b.age) {

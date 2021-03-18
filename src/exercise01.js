@@ -1,4 +1,4 @@
-// E.1 Crie uma função que recebe duas strings e retorna a de maior comprimento.
+/* E.1 Crie uma função que recebe duas strings e retorna a de maior comprimento.*/
 
 function ComprimentoString(argumentoUm, argumentoDois){
   if(argumentoUm.length > argumentoDois.length){
