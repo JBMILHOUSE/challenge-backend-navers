@@ -22,21 +22,19 @@ module.exports = {
           return response.status(404).json({ error: 'erro ao inserir um naver'});
       }
    },
-
+   /* Erro: ao buscar id
+    não conseguir desenvolver a lógica */
    async show(request, response) {
       const { id } = request.query;
 
         try {
-          const query = await connection('navers').join('navers', 'navers.id', '=', { id })
+          const query = await connection('navers').where('id', id).join('navers', 'navers.id', '=', { id })
                .select('navers.name', 'navers.job_role', 'navers.birthday', 'navers.admission_date', 'project.*');   
       
- 
           const results = await query;
- 
           return response.json(results)
- 
         } catch (error) {
-         return response.json({ message: "erro"})
+         return response.status(404).json({ message: "erro"})
         }
        
       
